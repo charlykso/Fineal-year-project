@@ -1,0 +1,176 @@
+{% load static %} {% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}
+            Sign In | Sing Up
+    {% endblock title %}  </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/line-awesome.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/line-awesome-font-awesome.min.css' %}">
+	<link href="{% static 'main/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/lib/slick/slick.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/lib/slick/slick-theme.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/responsive.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/fonts/Montserrat-Regular.ttf' %}">
+</head>
+
+<body class="sign-in" oncontextmenu="return false;" >
+	
+	<div class="wrapper">		
+
+		<div class="sign-in-page">
+			<div class="signin-popup">
+				<div class="signin-pop">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="cmp-info">
+								<div class="cm-logo">
+									<img src="{% static 'main/images/wd-logo.png' %}" alt="">
+									<p>MSC,  is a global freelancing platform and social networking where businesses 
+									and independent professionals connect and collaborate remotely</p>
+								</div><!--cm-logo end-->	
+								<img src="{% static 'main/images/cm-main-img.png' %}" alt="">			
+							</div><!--cmp-info end-->
+						</div>
+						<div class="col-lg-6">
+							<div class="login-sec">
+								<ul class="sign-control">
+									<li data-tab="tab-1"><a href="{% url 'accounts:login' %}" title="">Sign in</a></li>				
+									<li data-tab="tab-2" class="current"><a href="{% url 'accounts:register' %}" title="">Sign up</a></li>				
+								</ul>
+								{% if messages %}
+									{% for message in messages %}
+										<div class="alert alert-{{message.tags}}" role="alert"> {{message}}</div>
+									{% endfor %}
+								{% endif %}			
+								
+								<div class="new">
+									<div class="dff-tab current" id="tab-3">
+										<form method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.first_name }}
+														<i class="la la-user"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.last_name }}
+														<i class="la la-user"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.email }}
+														<i class="la la-envelope"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.username }}
+														<i class="la la-user"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.password1 }}
+														<i class="la la-lock"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														{{ form.password2 }}
+														<i class="la la-lock"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="checky-sec st2">
+														<div class="fgt-sec">
+															<input type="checkbox" name="cc" id="c2">
+															<label for="c2">
+																<span></span>
+															</label>
+															<small>Yes, I understand and agree to the Terms & Conditions.</small>
+														</div><!--fgt-sec end-->
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<button type="submit" value="submit">Get Started</button>
+												</div>
+											</div>
+										</form>
+									</div><!--dff-tab end-->
+								</div>		
+							</div><!--login-sec end-->
+						</div>
+					</div>		
+				</div><!--signin-pop end-->
+			</div><!--signin-popup end-->
+			<div class="footy-sec">
+				<div class="container">
+					<ul>
+						<li><a href="#" title="">Help Center</a></li>
+						<li><a href="#" title="">About</a></li>
+						<li><a href="#" title="">Privacy Policy</a></li>
+						<li><a href="#" title="">Community Guidelines</a></li>
+						<li><a href="#" title="">Cookies Policy</a></li>
+						<li><a href="#" title="">Career</a></li>
+						<li><a href="#" title="">Forum</a></li>
+						<li><a href="#" title="">Language</a></li>
+						<li><a href="#" title="">Copyright Policy</a></li>
+					</ul>
+					<p><img src="{% static 'main/images/copy-icon.png' %}" alt="">Copyright 2021</p>
+				</div>
+			</div><!--footy-sec end-->
+		</div><!--sign-in-page end-->
+
+
+	</div><!--theme-layout end-->
+
+
+
+<script type="text/javascript" src="{% static 'main/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/popper.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/lib/slick/slick.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/script.js' %}"></script>
+</body>
+
+
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder = "FirstName...";
+    form_fields[2].placeholder = "LastName...";
+    form_fields[3].placeholder = "Email...";
+    form_fields[4].placeholder = "Username...";
+    form_fields[5].placeholder = "Password...";
+    form_fields[6].placeholder = "Confirm Password...";
+    
+    form_fields[1].style ="padding-left: 40px";
+    form_fields[2].style ="padding-left: 40px";
+    form_fields[3].style ="padding-left: 40px";
+    form_fields[4].style ="padding-left: 40px";
+    form_fields[5].style ="padding-left: 40px";
+    form_fields[6].style ="padding-left: 40px";
+
+    form_fields[1].className += "form-control";
+    form_fields[2].className += "form-control";
+    form_fields[3].className += "form-control";
+    form_fields[4].className += "form-control";
+    form_fields[5].className += "form-control";
+    form_fields[6].className += "form-control";
+</script>
+
+</html>

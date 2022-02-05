@@ -1,0 +1,83 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+
+{% block main %}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Welcome to ChatApp
+                <small>Pick a friend and start chatting!</small>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="user-list" class="list-group">
+                    <a href="" class="list-group-item disabled">
+                        <h4 class="list-group-item-heading">Friends</h4>
+                        {# Friends go here #}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Chat</h4>
+                    </div>
+                    <div>
+                        <ul id="messages" class="messages">
+                            {# Messages go here #}
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="chat-input" type="text"
+                                   class="form-control input"
+                                   placeholder="Type your message here ..."
+                                   maxlength="500">
+                            <span class="input-group-btn">
+                            <button class="btn btn-info btn"
+                                    id="btn-send">
+                                Send</button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionKey = '{{ request.session.session_key }}';
+        let currentUser = '{{ request.user.username }}';
+    </script>
+    <script src="{% static 'chat/js/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'chat/reconnecting-websocket.js' %}"></script>
+
+    <script type="text/javascript">
+        
+       // let socket = new ReconnectingWebSocket(`ws://127.0.0.1:8000/chat/app/?session_key=${sessionKey}`);
+     var socket = new ReconnectingWebSocket(
+         'ws://' + window.location.host +
+        '/ws?session_key=${sessionKey}')
+
+
+    chatInput.keypress(function (e) {
+        if (e.keyCode == 13)
+            chatButton.click();
+    });
+
+    chatButton.click(function () {
+        if (chatInput.val().length > 0) {
+            sendMessage(currentRecipient, chatInput.val());
+            chatInput.val('');
+        }
+    });
+
+    socket.onmessage = function (e) {
+        getMessageById(e.data);
+    };
+    </script>
+
+{% endblock %}

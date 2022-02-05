@@ -1,0 +1,104 @@
+{% extends 'mainPage/base.html' %} {% load static %}
+<title>{% block title%}{% endblock title%}</title>
+{% block body%}
+<!-- register -->
+<div class="sign-up-form">
+    <form  method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert"> {{message}}</div>
+        {% endfor %}
+    {% endif %}
+    <h3 class="tittle">Registration <i class="glyphicon glyphicon-file"></i></h3>
+    <p>Having hands on experience in creating innovative designs,I do offer design solutions which harness</p>
+    <div class="sign-up">
+        <h3 class="tittle reg">Personal Information <i class="glyphicon glyphicon-user"></i></h3>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4 class="a">First Name* :</h4>
+            </div>
+            <div class="sign-up2"> 
+    
+                    {{ form.first_name }}
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4 class="b">Last Name* :</h4>
+            </div>
+            <div class="sign-up2">
+                
+                    {{ form.last_name }}
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4 class="c">Email Address* :</h4>
+            </div>
+            <div class="sign-up2"> 
+            
+                        {{ form.email }}
+
+                
+             </div>
+            <div class="clearfix"> </div>
+        </div>
+        <h3 class="tittle reg">Login Information <i class="glyphicon glyphicon-off"></i></h3>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4 class="a">Username* :</h4>
+            </div>
+            <div class="sign-up2"> 
+            
+                    {{ form.username }}
+
+                
+             </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4 class="d">Password* :</h4>
+            </div>
+            <div class="sign-up2"> 
+            
+                    {{ form.password1 }}
+
+            </div> 
+            <div class="clearfix"> </div>
+        </div>
+        <div class="sign-u">
+            <div class="sign-up1">
+                <h4>Confirm Password* :</h4>
+            </div>
+            <div class="sign-up2"> 
+
+                    {{ form.password2 }}
+
+
+             </div>
+            <div class="clearfix"> </div>
+        </div>
+            {{ form.errors }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div> 
+
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[4].placeholder = "FirstName...";
+    form_fields[5].placeholder = "LastName...";
+    form_fields[6].placeholder = "Email...";
+    form_fields[7].placeholder = "Username...";
+    form_fields[8].placeholder = "Password...";
+    form_fields[9].placeholder = "Confirm Password...";
+    
+    form_fields[6].className += "form-control"
+</script>
+<!-- //register -->{% endblock body%}

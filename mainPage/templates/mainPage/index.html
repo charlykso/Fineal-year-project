@@ -1,0 +1,287 @@
+{% extends 'mainPage/base.html' %} {% load static %}
+
+<title>{% block title %} Home | Chat {% endblock title %}</title>
+
+{% block body %}
+
+<main>
+  <div class="main-section">
+    <div class="container">
+      <div class="main-section-data">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+            <div class="main-left-sidebar no-margin">
+              <div class="user-data full-width">
+                <div class="user-profile">
+                  <div class="username-dt">
+                    <div class="usr-pic">
+                      <img
+                        src="{{user.profile.profile_pic.url}}"
+                        alt=""
+                        class="img img-circle"
+                      />
+                    </div>
+                  </div>
+                  <!--username-dt end-->
+                  <div class="user-specs">
+                    <h3>{{ user }}</h3>
+                    <span>{{ user.email }}</span>
+                  </div>
+                </div>
+                <!--user-profile end-->
+                <ul class="user-fw-status">
+                  <li>
+                    <h4>Friends</h4>
+                    <span>{{ user.profile.get_friends_no }}</span>
+                  </li>
+                  {% comment %} <li>
+                    <h4>Friend Request</h4>
+                    <span>0</span>
+                  </li> {% endcomment %}
+                  <li>
+                    <h4>No of Online Users</h4>
+                    <span>{{ request.online_now.count }}</span>
+                  </li>
+                  <li>
+                    <a
+                      href="{% url 'accounts:profile_view' request.user.profile.id %}"
+                      title=""
+                      >View Profile</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <!--user-data end-->
+              
+              <!--suggestions end-->
+            </div>
+            <!--main-left-sidebar end-->
+          </div>
+          <div class="col-lg-6 col-md-8 no-pd">
+            <div class="main-ws-sec">
+              <div class="post-topbar">
+                <div class="user-picy">
+                  <img src="{{user.profile.profile_pic.url}}" alt="" />
+                </div>
+                <div class="post-st">
+                  <ul>
+                    <li>
+                      <a class="post_project" href="#" title=""
+                        >Post a Project</a
+                      >
+                    </li>
+                    <li>
+                      <a class="post-jb active" href="#" title="">Post a Job</a>
+                    </li>
+                  </ul>
+                </div>
+                <!--post-st end-->
+              </div>
+              <!--post-topbar end-->
+              <div class="posts-section">
+              
+                <!--post-bar end-->
+                <div class="top-profiles">
+                  <div class="pf-hd">
+                    <h3>Suggestions</h3>
+                    <i class="la la-ellipsis-v"></i>
+                  </div>
+                  <div class="profiles-slider">
+                    {% for user in users %}
+                    <div class="user-profy">
+                      <img
+                        src="{{user.profile_pic.url}}"
+                        alt=""
+                        class="img img-circle"
+                      />
+                      <h3>{{user}}</h3>
+                      <span>{{user.date_created}}</span>
+                      <ul>
+                        <li><a href="#" title="" class="followw">Follow</a></li>
+                        <li>
+                          <a href="#" title="" class="envlp"
+                            ><img
+                              src="{% static 'main/images/envelop.png' %}"
+                              alt=""
+                          /></a>
+                        </li>
+                        <li><a href="#" title="" class="hire">hire</a></li>
+                      </ul>
+                      <a href="{{user.get_absolute_url}}" title=""
+                        >View Profile</a
+                      >
+                    </div>
+                    <!--user-profy end-->
+                    {% endfor %}
+                  </div>
+                  <!--profiles-slider end-->
+                </div>
+                <!--top-profiles end-->
+                
+                <!--post-bar end-->
+              </div>
+              <!--posts-section end-->
+            </div>
+            <!--main-ws-sec end-->
+          </div>
+          <div class="col-lg-3 pd-right-none no-pd">
+            <div class="right-sidebar">
+              <div class="widget widget-about">
+                <img src="{% static 'main/images/wd-logo.png' %}" alt="" />
+                <h3>Be here and be Safe</h3>
+                <span>The safest place to chat</span>
+                <div class="sign_link">
+                  <h3>
+                    <a href="{% url 'accounts:login' %}" title="">Sign up</a>
+                  </h3>
+                  <a href="#" title="">Learn More</a>
+                </div>
+              </div>
+              <!--widget-about end-->
+              <div class="widget widget-jobs">
+                <div class="sd-title">
+                  <h3>Online Users</h3>
+                  <i class="la la-ellipsis-v"></i>
+                </div>
+                <div class="jobs-list">
+                  {% comment %} {% for user in all_users %} {% endcomment %} 
+                {% for user in request.online_now %}
+                  <div class="job-info">
+                    <div class="job-details">
+                      <h3>{{ user }}</h3>
+                    </div>
+                    <div class="hr-rate">
+                      <span>Online<span class="circle"></span></span>
+                    </div>
+                  </div>
+                  <!--job-info end-->
+                {% endfor %} {% comment %} {% endfor %} {% endcomment %}
+                </div>
+                <!--jobs-list end-->
+              </div>
+              <!--widget-jobs end-->
+
+            </div>
+            <!--right-sidebar end-->
+          </div>
+        </div>
+      </div>
+      <!-- main-section-data end-->
+    </div>
+  </div>
+</main>
+
+<div class="post-popup pst-pj">
+  <div class="post-project">
+    <h3>Post a project</h3>
+    <div class="post-project-fields">
+      <form>
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="text" name="title" placeholder="Title" />
+          </div>
+          <div class="col-lg-12">
+            <div class="inp-field">
+              <select>
+                <option>Category</option>
+                <option>Category 1</option>
+                <option>Category 2</option>
+                <option>Category 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <input type="text" name="skills" placeholder="Skills" />
+          </div>
+          <div class="col-lg-12">
+            <div class="price-sec">
+              <div class="price-br">
+                <input type="text" name="price1" placeholder="Price" />
+                <i class="la la-dollar"></i>
+              </div>
+              <span>To</span>
+              <div class="price-br">
+                <input type="text" name="price1" placeholder="Price" />
+                <i class="la la-dollar"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <textarea name="description" placeholder="Description"></textarea>
+          </div>
+          <div class="col-lg-12">
+            <ul>
+              <li>
+                <button class="active" type="submit" value="post">Post</button>
+              </li>
+              <li><a href="#" title="">Cancel</a></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--post-project-fields end-->
+    <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+  </div>
+  <!--post-project end-->
+</div>
+<!--post-project-popup end-->
+
+<div class="post-popup job_post">
+  <div class="post-project">
+    <h3>Post a job</h3>
+    <div class="post-project-fields">
+      <form>
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="text" name="title" placeholder="Title" />
+          </div>
+          <div class="col-lg-12">
+            <div class="inp-field">
+              <select>
+                <option>Category</option>
+                <option>Category 1</option>
+                <option>Category 2</option>
+                <option>Category 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <input type="text" name="skills" placeholder="Skills" />
+          </div>
+          <div class="col-lg-6">
+            <div class="price-br">
+              <input type="text" name="price1" placeholder="Price" />
+              <i class="la la-dollar"></i>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="inp-field">
+              <select>
+                <option>Full Time</option>
+                <option>Half time</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <textarea name="description" placeholder="Description"></textarea>
+          </div>
+          <div class="col-lg-12">
+            <ul>
+              <li>
+                <button class="active" type="submit" value="post">Post</button>
+              </li>
+              <li><a href="#" title="">Cancel</a></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--post-project-fields end-->
+    <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+  </div>
+  <!--post-project end-->
+</div>
+<!--post-project-popup end-->
+
+{% endblock body %}

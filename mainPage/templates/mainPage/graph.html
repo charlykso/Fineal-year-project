@@ -1,0 +1,98 @@
+{% comment %} {% extends 'mainPage/base.html' %}  {% endcomment %}
+{% load static %} 
+<head>
+    <meta charset="UTF-8" />
+    <title> MSC | Graph
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/animate.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/line-awesome.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/line-awesome-font-awesome.min.css' %}"
+    />
+    <link
+      href="{% static 'main/vendor/fontawesome-free/css/all.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/font-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/jquery.mCustomScrollbar.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/lib/slick/slick.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/lib/slick/slick-theme.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'main/css/responsive.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'chat/css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'chat/css/font-awesome.min.css' %}"
+    />
+
+<style>
+    body{
+        margin: 0 auto;
+    }
+</style>
+</head>
+{% block body %}
+<div style="margin: 50px">
+{% for clas in  user_classifier %}
+  <p>{{clas.classifier}}</p>
+{% endfor %}
+<p>{{newclas}}</p>
+  <img
+    src="{% static 'graph-pic/graph1.png' %}"
+    alt=""
+    class="img img-responsive"
+    width="100%"
+    height="100%"
+    style="padding: 30px"
+  />
+
+  {% comment %} {% for f in frnds %}
+  <ul>
+    <li>{{f}}</li>
+  </ul>
+  {% endfor %} {% endcomment %}
+</div>
+{% endblock body %}

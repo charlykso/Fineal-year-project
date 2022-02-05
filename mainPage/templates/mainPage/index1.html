@@ -1,0 +1,167 @@
+{% extends "mainPage/base.html" %} {% load static %}
+
+<title> {% block title %} MySchoolChat | Home {% endblock title %} </title>
+
+{% block body %}
+
+<div class="banner-section">
+    <h3 class="tittle">General <i class="glyphicon glyphicon-picture"></i></h3>
+    <div class="banner">
+        <div class="callbacks_container">
+            <ul class="rslides" id="slider4">
+                <li>
+                    <img src="{% static 'main/images/1.jpg' %}" class="img-responsive" alt="" />
+
+                </li>
+                <li>
+                    <img src="{% static 'main/images/2.jpg' %}" class="img-responsive" alt="" />
+
+
+                </li>
+                <li>
+                    <img src="{% static 'main/images/3.jpg' %}" class="img-responsive" alt="" />
+
+
+                </li>
+                <li>
+                    <img src="{% static 'main/images/3.jpg' %}" class="img-responsive" alt="" />
+
+
+                </li>
+            </ul>
+        </div>
+        <!--banner-->
+        <script src="{% static 'main/js/responsiveslides.min.js' %}"></script>
+        <script>
+            // You can also use "$(window).load(function() {"
+            $(function() {
+                // Slideshow 4
+                $("#slider4").responsiveSlides({
+                    auto: true,
+                    pager: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function() {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function() {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+
+            });
+        </script>
+        <div class="clearfix"> </div>
+        <div class="b-bottom">
+            <h5 class="top"><a href="#">What turn out consetetur sadipscing elit</a></h5>
+            <p>On Aug 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+        </div>
+    </div>
+    <!--//banner-->
+    <!--/top-news-->
+    <div class="top-news">
+        <div class="top-inner">
+            <div class="col-md-6 top-text">
+            {% comment %} {% for t in test %}
+                <h1>{{ t }}</h1>
+            {% endfor %} {% endcomment %}
+                {% comment %} <h1>{{ test }}</h1> {% endcomment %}
+                <a href="#"><img src="{% static 'main/images/pic1.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+            <div class="col-md-6 top-text two">
+                <a href="#"><img src="{% static 'main/images/pic2.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 27 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="top-inner second">
+            <div class="col-md-6 top-text">
+                <a href="#"><img src="{% static 'main/images/pic3.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+            <div class="col-md-6 top-text two">
+                <a href="#"><img src="{% static 'main/images/pic4.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 27 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--//top-news-->
+</div>
+<!--//banner-section-->
+<div class="banner-right-text">
+    {% if user.is_authenticated %}
+        <h3 class="tittle">Users <i class="glyphicon glyphicon-user"></i></h3>
+    {% else %}
+        <h3 class="tittle">News <i class="glyphicon glyphicon-facetime-video"></i></h3>
+    {% endif %}
+    <!--/general-news-->
+    <div class="general-news">
+        <div class="general-inner">
+            <div class="general-text">
+            {% if user.is_authenticated %}
+
+            {% else %}
+                <a href="#"><img src="{% static 'main/images/gen1.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
+                <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            
+                <a href="#"><img src="{% static 'main/images/gen1.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            {% endif %}
+            </div>
+            <div class="edit-pics">
+            {% if user.is_authenticated %}
+                {% for user in users %}
+                <div class="editor-pics">
+                    <div class="col-md-3 item-pic">
+                        <img src="{{user.profile_pic.url}}" class="img-responsive" alt="">
+
+                    </div>
+                    <div class="col-md-9 item-details">
+                        <h5 class="inner two"><a href="{{user.get_absolute_url}}">{{user}}</a></h5>
+                        <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{user.date_created}} 
+                        <a href="#">{{user.email}}<i class="glyphicon glyphicon-comment"></i>0 </a></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                {% endfor %}
+            {% endif %}
+                
+            </div>
+            <div class="media">
+                <h3 class="tittle media">Media <i class="glyphicon glyphicon-floppy-disk"></i></h3>
+                <div class="general-text two">
+                    <a href="#"><img src="{% static 'main/images/gen3.jpg' %}" class="img-responsive" alt=""></a>
+                    <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                    <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                    <p>On Jun 27 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+                </div>
+            </div>
+            <div class="general-text two">
+                <a href="#"><img src="{% static 'main/images/gen2.jpg' %}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="#">Consetetur sadipscing elit</a></h5>
+                <p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore dolore magna aliquyam eratsed diam justo duo dolores rebum.</p>
+                <p>On Jun 27 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+        </div>
+    </div>
+    <!--//general-news-->
+    <!--/news-->
+    <!--/news-->
+    
+</div>
+{% endblock body %}

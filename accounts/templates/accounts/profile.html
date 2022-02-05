@@ -1,0 +1,68 @@
+{% extends 'mainPage/base.html' %}
+{% load static %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+<title>{% block title %} Profile
+{% endblock title %}</title>
+<style>
+    
+</style>
+
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row" style="min-height: 450px">
+        <div class="d-flex justify-content-center mb-3" style="padding-top: 20px">
+            <div class="p-2"><h1 class="h2 text-center"> Profile Update <i class="glyphicon glyphicon-file"></i> </h1> </div>
+        </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert"> {{message}}</div>
+                {% endfor %}
+            {% endif %}
+    
+        <div class="col-md-2"></div>
+        <div class="col-md-3 my-5">
+            <img class="img-thumbnail" src="{{user.profile.profile_pic.url}}" height="200px" width="200px" />
+        </div>
+        <div class="card o-hidden border-0 shadow-lg my-5 col-md-5">
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" role="form" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Name:</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Phone No:</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        {{ form.email }}
+                    </div>
+                    {% comment %} <div class="form-group">
+                        <label for="email">Slug:</label>
+                        {{ form.slug }}
+                    </div> {% endcomment %}
+                    <div class="form-group">
+                        <label for="pwd">Profile Pic:</label>
+                        {{ form.profile_pic }}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[4].className += "form-control";
+    form_fields[5].className += "form-control";
+    form_fields[6].className += "form-control";
+    //form_fields[7].className += "form-control";
+</script>
+{% endblock body %}

@@ -1,0 +1,124 @@
+{% extends 'mainPage/base.html' %} {% load static %}
+
+<title>{% block title %} Chat {% endblock title %}</title>
+
+{% include 'chat/header.html' %} {% block body %}
+<section class="messages-page">
+  <div class="container">
+    <div class="messages-sec">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 no-pdd">
+          <div id="user-list" class="list-group">
+            <a href="" class="list-group-item disabled">
+            <img style="width:70px; height:70px;" src="{% static 'main/images/wd-logo.png' %}"
+                      alt="" /> 
+              <h2 class="list-group-item-heading">Friends</h2>
+            </a>
+            {# Friends go here #}
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-12 no-pdd">
+          <div class="main-conversation-box">
+            <div class="panel panel-info">
+              <div class="message-bar-head">
+                <div class="usr-msg-details">
+                  <div class="usr-ms-img">
+                  </div>
+                  <div>
+                    <!-- <p>this is text {{context.qs}}</p> -->
+                    <img style="width:70px; height:70px;" src="{% static 'main/images/wd-logo.png' %}"
+                      alt="" />
+                    
+                  </div>
+                  <div class="usr-mg-info">
+                    <h3 id="chat-usr"></h3>
+                    <p>{{context.qs}}</p>
+
+                    {% comment %} {% if currentRecipient.is_authenticated %}
+                    
+                    	<p><span class="on"></span>Online</p>
+                    {% else %}
+                    	<p><span class="off"></span>Offline</p>
+                    {% endif %} {% endcomment %}
+                  </div>
+                  <!--usr-mg-info end-->
+                </div>
+                <a href="{% url 'chat:last_messages' %}" title=""><button disabled="disabled" class="btn btn-primary btn-sm">View Graph
+                      </button></a>
+              </div>
+              <!--message-bar-head end-->
+              <div class="main-msg">
+                <ul id="messages" class="messages">
+                  {# Messages go here #}
+                </ul>
+              </div>
+              <div class="panel-footer">
+                <div class="input-group">
+                  <input
+                    id="chat-input"
+                    type="text"
+                    class="form-control input"
+                    placeholder="Type your message here ..."
+                    maxlength="500"
+                  />
+                  <span class="input-group-btn">
+                    <button class="btn btn-info btn" id="btn-send">Send</button>
+                  </span>
+                  <ul>
+                    <li>
+                      <a href="#" title=""><i class="fa fa-smile-o"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" title=""><i class="fa fa-camera"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" title=""><i class="fa fa-paperclip"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--messages-sec end-->
+  </div>
+</section>
+<!--messages-page end-->
+<script type="text/javascript">
+  let sessionKey = "{{ request.session.session_key }}";
+  let currentUser = "{{ request.user.username }}";
+</script>
+
+<!-- <script type="text/javascript" src="{% static 'chat/reconnecting-websocket.js' %}"
+></script> -->
+<script>
+  function go() {
+    
+    document.getElementById("chat-usr").innerHTML = currentRecipient;
+    console.log(currentRecipient);
+  }
+</script>
+<script type="text/javascript">
+  // let socket = new ReconnectingWebSocke(`ws://127.0.0.1:8000/?session_key=${sessionKey}`);
+  // var socket = new ReconnectingWebSocke(
+  //     'ws://' + window.location.host + '/ws?session_key=${sessionKey}',
+  // )
+
+  // chatInput.keypress(function(e) {
+  //     if (e.keyCode == 13) chatButton.click()
+  // })
+
+  // chatButton.click(function() {
+  //     if (chatInput.val().length > 0) {
+  //         sendMessage(currentRecipient, chatInput.val())
+  //         chatInput.val('')
+  //     }
+  // })
+
+  // socket.onmessage = function(e) {
+  //     getMessageById(e.data)
+  // }
+</script>
+{% endblock %}

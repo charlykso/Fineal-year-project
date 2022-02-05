@@ -1,0 +1,302 @@
+{% extends 'mainPage/base.html' %} {% load static %}
+
+<title>{% block title %} Home | Chat {% endblock title %}</title>
+
+{% block body %}
+
+
+		<section class="cover-sec">
+			<img src="{% static 'main/images/resources/cover-img.jpg' %}" alt="">
+		</section>
+
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="main-left-sidebar">
+									<div class="user_profile">
+										<div class="user-pro-img">
+										{% if request.user == u %}
+											<img src="{{request.user.profile.profile_pic.url}}" alt="">
+										{% else %}
+											<img src="{{u.profile.profile_pic.url}}" alt="">
+										{% endif %}
+										</div><!--user-pro-img end-->
+										<div class="user_pro_status">
+										{% if request.user == u %}
+											<ul class="flw-hr" style="display: none;">
+												<li><a href="#" title="" class="flww"><i class="la la-plus"></i> Follow</a></li>
+												<li><a href="#" title="" class="hre">Hire</a></li>
+											</ul>
+										{% else %}
+											<ul class="flw-hr">
+											{% if button_status == "not_friend" %}
+												<li><a href="/accounts/friend-request/send/{{ u.id }}" title="" class="btn-primary flww"><i class="la la-plus"></i> Add Friend</a></li>
+											{% elif button_status == 'friend_request_sent' %}
+												<li><a href="/accounts/friend-request/cancel/{{ u.id }}" class="btn-warning hre">Cancel Request</a></li>
+											{% endif %}
+											</ul>
+										{% endif %}
+											<ul class="flw-status">
+											{% if request.user == u %}
+												<li>
+													<span>Friends</span>
+													<b>{{ user.profile.get_friends_no }}</b>
+												</li>
+												<li>
+													<span>Requests</span>
+													<a href="#" class="btn disabled">
+													<b>{{ user.FriendRequest.get_friends_request }}</b>Rqts</a>
+												</li>
+											{% else %}
+												<li class="text-center">
+													<span>Friends</span>
+													<b>{{ u.profile.get_friends_no }}</b>
+												</li>
+											{% endif %}
+											</ul>
+										</div><!--user_pro_status end-->
+										
+									</div><!--user_profile end-->
+									<div class="suggestions full-width">
+										<div class="sd-title">
+										{% if request.user == u %}
+											<h3>Friends</h3>
+											<i class="la la-ellipsis-v"></i>
+										{% else %}
+											<h3>Details</h3>
+											<i class="la la-ellipsis-v"></i>
+										{% endif %}
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+										{% if request.user == u %}
+											{% for friend in friends_list %}
+											<div class="suggestion-usd">
+												<img src="{{friend.user.profile.profile_pic.url}}" alt="">
+												<div class="sgt-text">
+													<h4><a href="{{ friend.user.profile.get_absolute_url }}">{{ friend.user.username }}</a><br></h4>
+													<span>{{ friend.user.date_joined }}</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											{% endfor %}
+										{% endif %}
+										{% if request.user != u %}
+											
+											<div class="suggestion-usd">
+												<img src="{{ u.profile.profile_pic.url }}" alt="">
+												<div class="sgt-text">
+													<h4>{{ u.first_name }}   {{ u.last_name }}</h4>
+													<span>{{ u.email }}</span><br>
+													<span>{{ u.profile.phone }}</span><br>
+													<span>{{ u.date_joined }}</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											
+										{% endif %}
+											<div class="view-more">
+												<a href="#" title="">View More</a>
+											</div>
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+								</div><!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-6">
+								<div class="main-ws-sec">
+									<div class="user-tab-sec">
+									{% if request.user == u %}
+										<h3>{{ request.user.username }}  {{ request.user.last_name }}</h3>
+										<div class="star-descp">
+											<span>{{ request.user.profile.phone}}</span>
+											<ul>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star-half-o"></i></li>
+											</ul>
+										</div><!--star-descp end-->
+									{% else %}
+										<h3>{{ u.first_name }}  {{ u.last_name }}</h3>
+										<div class="star-descp">
+											<span>{{ u.profile.phone }}</span>
+											<ul>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star-half-o"></i></li>
+											</ul>
+										</div><!--star-descp end-->
+									{% endif %}
+										<div class="tab-feed">
+											<ul>
+												<li data-tab="feed-dd" class="active">
+													<a href="#" title="">
+														<img src="{% static 'main/images/ic1.png' %}" alt="">
+														<span>Feed</span>
+													</a>
+												</li>
+												<li data-tab="info-dd">
+													<a href="#" title="">
+														<img src="{% static 'main/images/ic2.png' %}" alt="">
+														<span>Info</span>
+													</a>
+												</li>
+												<li data-tab="portfolio-dd">
+													<a href="#" title="">
+														<img src="{% static 'main/images/ic3.png' %}" alt="">
+														<span>Portfolio</span>
+													</a>
+												</li>
+											</ul>
+										</div><!-- tab-feed end-->
+									</div><!--user-tab-sec end-->
+									<div class="product-feed-tab current" id="feed-dd">
+										<div class="posts-section">
+											<!--post-bar end-->
+											<div class="post-bar">
+												<div class="post_topbar">
+													{% if request.user == u %}
+													<div class="usy-dt">
+														<img src="{{ user.profile.profile_pic.url }}" alt="" class="my-img">
+														<div class="usy-name">
+															<h3>{{ request.user.username }}</h3>
+															<span><img src="{% static 'main/images/clock.png' %}" alt="">3 min ago</span>
+														</div>
+													</div>
+												{% else %}
+													<div class="usy-dt">
+														<img src="{{ u.profile.profile_pic.url }}" alt="" class="my-img">
+														<div class="usy-name">
+															<h3>{{ u.username }}</h3>
+															<span><img src="{% static 'main/images/clock.png' %}" alt="">3 min ago</span>
+														</div>
+													</div>
+												{% endif %}
+													<div class="ed-opts">
+														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+														<ul class="ed-options">
+															<li><a href="#" title="">Edit Post</a></li>
+															<li><a href="#" title="">Unsaved</a></li>
+															<li><a href="#" title="">Unbid</a></li>
+															<li><a href="#" title="">Close</a></li>
+															<li><a href="#" title="">Hide</a></li>
+														</ul>
+													</div>
+												</div>
+												<div class="epi-sec">
+													<ul class="descp">
+														<li><img src="{% static 'main/images/icon8.png' %}" alt=""><span>Front End Developer</span></li>
+														<li><img src="{% static 'main/images/icon9.png' %}" alt=""><span>India</span></li>
+													</ul>
+													<ul class="bk-links">
+														<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+														<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+														<li><a href="#" title="" class="bid_now">Bid Now</a></li>
+													</ul>
+												</div>
+												<div class="job_descp">
+													<h3>Simple Classified Site</h3>
+													
+													<ul class="skill-tags">
+														<li><a href="#" title="">HTML</a></li>
+														<li><a href="#" title="">PHP</a></li>
+														<li><a href="#" title="">CSS</a></li>
+														<li><a href="#" title="">Javascript</a></li>
+														<li><a href="#" title="">Wordpress</a></li> 	
+													</ul>
+												</div>
+												<div class="job-status-bar">
+													<ul class="like-com">
+														<li>
+															<a href="#"><i class="fas fa-heart"></i> Like</a>
+															<img src="{% static 'main/images/liked-img.png' %}" alt="">
+															<span></span>
+														</li>
+														<li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments </a></li>
+													</ul>
+													<a href="#"><i class="fas fa-eye"></i>Views </a>
+												</div>
+											</div><!--post-bar end-->
+										</div><!--posts-section end-->
+									</div><!--product-feed-tab end-->
+									
+								</div><!--main-ws-sec end-->
+							</div>
+							<div class="col-lg-3">
+								<div class="right-sidebar">
+								{% if button_status == "not_friend" %}
+									<div class="message-btn">
+										<a href="#" class="disabled"><i class="fa fa-envelope"></i> Message</a>
+									</div>
+								{% else %}
+									<div class="message-btn">
+										<a href="{% url 'chat:chatapp' %}" title=""><i class="fa fa-envelope"></i> Message</a>
+									</div>
+								{% endif %}
+									<div class="widget widget-portfolio">
+										<div class="wd-heady">
+										{% if request.user == u %}
+											<h3>Friend Requests</h3>
+											<img src="{% static 'main/images/photo-icon.png' %}" alt="">
+										{% else %}
+											<h3>Status</h3>
+										</div>
+										{% endif %}
+										<div class="pf-gallery">
+											{% comment %} <ul> {% endcomment %}
+											{% if request.user == u %}
+												{% for r_request in rec_friend_request %}
+
+													<div class="suggestion-usd">
+													<div class="row">
+														<div class="sgt-text col-md-6">
+															<img src="{{r_request.from_user.profile.profile_pic.url}}" alt="" class="req_img"><br>
+															<a  href="{{ r_request.from_user.profile.get_absolute_url }}">
+															<span style="font-size:20px; color:#5DB0FF">{{ r_request.from_user.username }}</span>
+															</a>
+															
+														</div>
+														<div class="col-md-6">
+															<small>
+																<a class="btn btn-primary btn-sm" href="/accounts/friend-request/accept/{{ r_request.from_user.id }}">Accept</a> 
+															</small>
+															<small>
+																<a class="btn btn-danger btn-sm" href="/accounts/friend-request/delete/{{ r_request.from_user.id }}">Ignore</a> 
+															</small>
+														</div>
+														</div>
+													</div>
+												
+												{% endfor %}
+											{% else %}
+													<div class="status">
+												{% if u.is_authenticated %}
+													
+														<h4 class="online" style="color: #51A5FB">Online<span class="btn_online" style=""></span></h4> 
+														
+													
+												{% else %}
+													
+														<h4 class="offline" style="color: #E44D3A">Offline<span class="btn_offline"></span></h4> 
+														
+													
+												{% endif %}
+													</div>
+											{% endif %}
+											{% comment %} </ul> {% endcomment %}
+										</div><!--pf-gallery end-->
+									</div><!--widget-portfolio end-->
+								</div><!--right-sidebar end-->
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div> 
+			</div>
+		</main>
+{% endblock %}

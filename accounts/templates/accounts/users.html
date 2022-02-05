@@ -1,0 +1,85 @@
+{% extends 'mainPage/base.html' %}
+{% load static %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+<title>{% block title %} Profile
+{% endblock title %}</title>
+<style>
+    .three h2{
+        text-align: center;
+    }
+    .three ul li{
+        text-align: center;
+    }
+    .three a{
+        text-align: center;
+    }
+
+</style>
+
+
+{% block body %}
+<div class="container-fluid " style="margin: 0; padding: 0; overflow: hidden;">
+    <div class="jumbotron jumbotron-fluid" style=" min-height: 450px">
+        <div class="d-flex justify-content-center mb-3 " style="padding-top: 15px;">
+            <div class="p-2"><h1 class="h1 text-center"> User Profile <i class="glyphicon glyphicon-user"></i> </h1>
+                {% if request.user == u %}
+                    <p class="text-center">( {{ request.user.first_name}}  {{ request.user.last_name }} )</p>
+                {% endif %}
+             </div>
+             {% for t in test %}
+                {{ t.from_user }}
+                {{ t.to_user }}
+             {% endfor %}
+        
+        </div>
+        <div class="col-md-4 my-5 three text-center">
+            {% comment %} <img class="img-thumbnail" src="{{user.profile.profile_pic.url}}" height="200px" width="200px" /> {% endcomment %}
+        {% if request.user == u %}
+            <h2 style="text-align: center;">Friends <span><i>({{ user.profile.get_friends_no }})</i></span> </h2>
+            {% for friend in friends_list %}
+                <a href="{{ friend.user.profile.get_absolute_url }}">{{ friend.user.username }}</a><br>
+            {% endfor %}
+        </div>
+        <div class="col-md-4 three text-center ">
+            <h2 style="text-align: center;">Sent Requests</h2>
+            <ul>
+                {% for s_request in sent_friend_requests %}
+                    <li>{{ s_request.to_user.username }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4 three text-center">
+            <h2 style="text-align: center;">Received Requests</h2>
+            {% for r_request in rec_friend_request %}
+                <p><a href="{{ r_request.from_user.profile.get_absolute_url }}">{{ r_request.from_user.username }}</a></p>
+                <small><a class="btn btn-primary" href="/accounts/friend-request/accept/{{ r_request.from_user.id }}">Accept</a> </small>
+                <small><a class="btn btn-primary" href="/accounts/friend-request/delete/{{ r_request.from_user.id }}">Ignore</a> </small>
+            {% endfor %}
+            
+        {% else %}
+            <div class="col-md-12" style="text-align: left;">
+                <div class="col-md-6 item-pic">
+                    <img src="{{u.profile.profile_pic.url}}" class="img-responsive img-thumbnail" alt="">
+                </div>
+                <div class = "col-md-6">
+                    <h5>Name :</h5> <small> {{ u.first_name }}   {{ u.last_name }} </small>
+                    <h5>Email :</h5><small> {{ u.email }} </small>
+                    <h5>Phone :</h5><small> {{ u.profile.phone }} </small>
+                    <h5>Date Joined :</h5><small><i> {{ u.date_joined }} </i></small>
+                    <h5>No Of Friends :</h5><small><i> {{ u.profile.get_friends_no }} </i></small>
+                    
+                </div>
+            </div>
+            {% if button_status == "not_friend" %}
+                <small style=""><a class="btn btn-primary" href="/accounts/friend-request/send/{{ u.id }}">Add friend</a> </small>
+            {% elif button_status == 'friend_request_sent' %}
+                <small style=""><a class="btn btn-warning" href="/accounts/friend-request/cancel/{{ u.id }}">Cancel Request</a> </small>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    
+</div>
+
+{% endblock body %}
